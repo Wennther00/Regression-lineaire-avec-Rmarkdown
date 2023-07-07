@@ -1,0 +1,47 @@
+---
+title: "excercice d'application"
+author: "wennther"
+date: "2023-06-01"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r }
+# 1) read data CreditBancaire
+data=CreditBancaire
+
+# 2) Regression linaire
+y=data$Jours
+x1=data$Credit
+x2=data$Type
+modele=lm(y~x1+x2)
+
+# 3) summary(modele)
+resultat_reg=summary(modele)
+resultat_reg
+
+# 4) Tableau des coefficients, des statistiques de student et leur probabilite
+
+resultat_reg$coefficients
+resultat_reg$coefficients[,1]
+resultat_reg$coefficients[,4]
+tableau_resultats=cbind(resultat_reg$coefficients[,1], resultat_reg$coefficients[,3],resultat_reg$coefficients[,4])
+tableau_resultats
+# 5) Affichage des deux colonnes de coefficient estimes et les valeurs de la statistique de student
+tableau_resultats1=cbind(resultat_reg$coefficients[,1], resultat_reg$coefficients[,3])
+tableau_resultats1
+```
+
+## 6 )nuage de point et droite de regression
+
+```{r data}
+plot(resultat_reg$coefficients[,1], resultat_reg$coefficients[,3],                            ylab="statistique de student",xlab="coefficient estime")
+cor(resultat_reg$coefficients[,1], resultat_reg$coefficients[,3])
+abline(lm(resultat_reg$coefficients[,3]~resultat_reg$coefficients[,1]))
+```
+
+
